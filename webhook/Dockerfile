@@ -8,5 +8,5 @@ RUN pip3 install -r requirements.txt
 
 ADD . /webhook
 
-CMD python3 -m gunicorn -w 4 -b :8000 'app:create_app()'
+CMD python3 -m gunicorn -b :8000 'app:create_app()'
 
