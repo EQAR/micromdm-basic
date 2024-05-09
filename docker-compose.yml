@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  micromdm:
+    restart: always
+    build: ./micromdm
+    volumes:
+      - data:/opt/micromdm/data
+    environment:
+      - MICROMDM_CONFIG_PATH=/opt/micromdm/data
+      - MICROMDM_WEBHOOK_URL=http://webhook:8000/webhook
+      - MICROMDM_TLS=false
+      - MICROMDM_API_KEY
+      - MICROMDM_SERVER_URL
+    ports:
+      - "${MICROMDM_PORT}:8080"
+
+  webhook:
+    build: ./webhook
+    environment:
+      - MICROMDM_API_KEY
+      - MICROMDM_API_URL=http://micromdm:8080/
+
+volumes:
+  data:
+
